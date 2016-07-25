@@ -48,8 +48,12 @@ public class LoggingAspect {
             }
 
         }
+
+        long startTime = System.currentTimeMillis();
         //start method execution
         Object result = proceedingJoinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
 
         //show results
         if (result != null) {
@@ -60,7 +64,7 @@ public class LoggingAspect {
         }
 
         //show after
-        LogWriter.write(proceedingJoinPoint.getTarget().getClass(), logLevel, star + method.getName() + "() finished execution" + star);
+        LogWriter.write(proceedingJoinPoint.getTarget().getClass(), logLevel, star + method.getName() + "() finished execution and takes "+(endTime-startTime)+" millis time to execute " + star);
 
         return result;
     }
